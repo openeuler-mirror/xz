@@ -1,18 +1,10 @@
-%global profiledir %{_sysconfdir}/profile.d
-
 Name:           xz
 Version:        5.2.4
-Release:        4
+Release:        5
 Summary:        A free general-purpose data compreession software with LZMA2 algorithm
 License:        Public Domain, LGPLv2.1 and GPLv2+
 URL:            http://tukaani.org/xz
 Source0:        http://tukaani.org/%{name}/%{name}-%{version}.tar.xz
-
-#Source1 and Source2 get from fedora
-Source1:        colorxzgrep.sh
-Source2:        colorxzgrep.csh
-
-Patch6000:      0014-liblzma-Avoid-memcpy-NULL-foo-0-because-it-is-undefi.patch
 
 BuildRequires:  perl-interpreter
 
@@ -60,10 +52,6 @@ sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 %install
 %make_install
 
-mkdir -p %{buildroot}%{profiledir}
-install -p -m 644 %{SOURCE1} %{buildroot}%{profiledir}
-install -p -m 644 %{SOURCE2} %{buildroot}%{profiledir}
-
 %find_lang %name
 
 %check
@@ -77,7 +65,6 @@ LD_LIBRARY_PATH=$PWD/src/liblzma/.libs make check
 %{_bindir}/*lz*
 
 %{_libdir}/lib*.so.5*
-%{profiledir}/*
 %exclude %_pkgdocdir/examples*
 %exclude %{_libdir}/*.la
 
@@ -96,5 +83,11 @@ LD_LIBRARY_PATH=$PWD/src/liblzma/.libs make check
 %{_mandir}/man1/*xz*
 
 %changelog
+* Sat Jan 18 2020 JeanLeo<liujianliu.liu@huawei.com> - 5.2.4-5
+- Type:bugfix
+- ID:NA
+- SUG:NA
+- DESC:remove useless file or patch
+
 * Mon Sep 2 2019 dongjian<dongjian13@huawei.com> - 5.2.4-4
 - Rebuild the xz and fix description
