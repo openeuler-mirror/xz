@@ -1,6 +1,6 @@
 Name:           xz
 Version:        5.2.4
-Release:        7
+Release:        8
 Summary:        A free general-purpose data compreession software with LZMA2 algorithm
 License:        Public Domain, LGPLv2.1 and GPLv2+
 URL:            http://tukaani.org/xz
@@ -8,7 +8,7 @@ Source0:        http://tukaani.org/%{name}/%{name}-%{version}.tar.xz
 
 Patch0:         liblzma-Avoid-memcpy-NULL-foo-0-because-it-is-undefi.patch
 
-BuildRequires:  perl-interpreter
+BuildRequires:  perl-interpreter gcc
 
 Requires:       %{name} = %{version}-%{release}
 Requires:       grep >= 2.20-5
@@ -85,6 +85,12 @@ LD_LIBRARY_PATH=$PWD/src/liblzma/.libs make check
 %{_mandir}/man1/*xz*
 
 %changelog
+* Fri Feb 21 2020 chengquan<chengquan3@huawei.com> - 5.2.4-8
+- Type:bugfix
+- ID:NA
+- SUG:NA
+- DESC:Add necessary BuildRequire
+
 * Mon Jan 20 2020 JeanLeo<liujianliu.liu@huawei.com> - 5.2.4-7
 - Type:bugfix
 - ID:NA
