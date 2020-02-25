@@ -1,6 +1,6 @@
 Name:           xz
 Version:        5.2.4
-Release:        8
+Release:        9
 Summary:        A free general-purpose data compreession software with LZMA2 algorithm
 License:        Public Domain, LGPLv2.1 and GPLv2+
 URL:            http://tukaani.org/xz
@@ -12,9 +12,6 @@ BuildRequires:  perl-interpreter gcc
 
 Requires:       %{name} = %{version}-%{release}
 Requires:       grep >= 2.20-5
-Provides:       xz-libs
-Obsoletes:      xz-libs
-Obsoletes:      %{name}-compat-libs < %{version}-%{release}
 
 %description
 XZ Utils is free general-purpose data compression software with a high compression ratio.
@@ -34,6 +31,13 @@ Obsoletes:      xz-static xz-lzma-compat
 %description    devel
 This package mainly includes the following contents: static library,
 the header file, example, tests use case, other development and use of content.
+
+%package        libs
+Summary:        Libraries for xz
+Obsoletes:      %{name}-compat-libs < %{version}-%{release}
+
+%description    libs
+Libraries for decoding files compressed with LZMA or XZ utils.
 
 %package        help
 Summary:        Help documentation related to xz
@@ -66,9 +70,11 @@ LD_LIBRARY_PATH=$PWD/src/liblzma/.libs make check
 %{_bindir}/*xz*
 %{_bindir}/*lz*
 
-%{_libdir}/lib*.so.5*
 %exclude %_pkgdocdir/examples*
 %exclude %{_libdir}/*.la
+
+%files libs
+%{_libdir}/lib*.so.5*
 
 %files devel
 %dir %{_includedir}/lzma
@@ -85,6 +91,12 @@ LD_LIBRARY_PATH=$PWD/src/liblzma/.libs make check
 %{_mandir}/man1/*xz*
 
 %changelog
+* Mon Feb 24 2020 chengquan<chengquan3@huawei.com> - 5.2.4-9
+- Type:enhancement
+- ID:NA
+- SUG:NA
+- DESC:Split libs subpackage for xz
+
 * Fri Feb 21 2020 chengquan<chengquan3@huawei.com> - 5.2.4-8
 - Type:bugfix
 - ID:NA
