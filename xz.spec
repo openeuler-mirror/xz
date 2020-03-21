@@ -1,6 +1,6 @@
 Name:           xz
 Version:        5.2.4
-Release:        9
+Release:        10
 Summary:        A free general-purpose data compreession software with LZMA2 algorithm
 License:        Public Domain, LGPLv2.1 and GPLv2+
 URL:            http://tukaani.org/xz
@@ -23,14 +23,21 @@ The primary compression algorithm is currently LZMA2, which is used inside the .
 %package        devel
 Summary:        Libraries & headers for xz
 Requires:       %{name} = %{version}-%{release}
-Provides:       lzma = %{version}
-Provides:       xz-static xz-lzma-compat
-Obsoletes:      lzma < %{version}
-Obsoletes:      xz-static xz-lzma-compat
+Provides:       xz-static
+Obsoletes:      xz-static
 
 %description    devel
 This package mainly includes the following contents: static library,
 the header file, example, tests use case, other development and use of content.
+
+%package lzma-compat
+Summary:        Old LZMA format compatibility binaries
+Requires:       %{name} = %{version}-%{release}
+Provides:       lzma = %{version}
+Obsoletes:      lzma < %{version}
+
+%description lzma-compat
+This package contains the compatibility binaries for older LZMA.
 
 %package        libs
 Summary:        Libraries for xz
@@ -68,13 +75,15 @@ LD_LIBRARY_PATH=$PWD/src/liblzma/.libs make check
 %doc %{_pkgdocdir}
 %license %{_pkgdocdir}/COPYING*
 %{_bindir}/*xz*
-%{_bindir}/*lz*
 
 %exclude %_pkgdocdir/examples*
 %exclude %{_libdir}/*.la
 
 %files libs
 %{_libdir}/lib*.so.5*
+
+%files lzma-compat
+%{_bindir}/*lz*
 
 %files devel
 %dir %{_includedir}/lzma
@@ -91,6 +100,12 @@ LD_LIBRARY_PATH=$PWD/src/liblzma/.libs make check
 %{_mandir}/man1/*xz*
 
 %changelog
+* Sat Mar 21 2020 shenyangyang<shenyangyang4@huawei.com> - 5.2.4-10
+- Type:enhancement
+- ID:NA
+- SUG:NA
+- DESC:Split xz-lzma-compat subpackage
+
 * Mon Feb 24 2020 chengquan<chengquan3@huawei.com> - 5.2.4-9
 - Type:enhancement
 - ID:NA
