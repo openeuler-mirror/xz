@@ -1,10 +1,12 @@
 Name:           xz
 Version:        5.2.5
-Release:        1
+Release:        2
 Summary:        A free general-purpose data compreession software with LZMA2 algorithm
 License:        Public Domain, LGPLv2.1 and GPLv2+
 URL:            http://tukaani.org/xz
 Source0:        http://tukaani.org/%{name}/%{name}-%{version}.tar.xz
+
+Patch6000:      backport-CVE-2022-1271.patch
 
 BuildRequires:  perl-interpreter gcc
 
@@ -100,6 +102,12 @@ LD_LIBRARY_PATH=$PWD/src/liblzma/.libs make check
 %{_mandir}/de/man1/*xz*
 
 %changelog
+* Sat Apr 16 2022 shixuantong<shixuantong@h-partners.com> - 5.2.5-2
+- Type:CVE
+- CVE:CVE-2022-1271
+- SUG:NA
+- DESC:fix CVE-2022-1271
+
 * Thu Aug 06 2020 kangenbo<kangenbo@huawei.com> - 5.2.5-1
 - Type:enhancement
 - ID:NA
