@@ -1,10 +1,13 @@
 Name:           xz
 Version:        5.2.5
-Release:        2 
+Release:        3
 Summary:        A free general-purpose data compreession software with LZMA2 algorithm
 License:        Public Domain, LGPLv2.1 and GPLv2+
 URL:            http://tukaani.org/xz
 Source0:        http://tukaani.org/%{name}/%{name}-%{version}.tar.xz
+Source1:        colorxzgrep.sh
+Source2:        colorxzgrep.csh
+
 Patch6000:      backport-CVE-2022-1271.patch
 
 BuildRequires:  perl-interpreter gcc
@@ -64,6 +67,12 @@ sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 %install
 %make_install
 
+# config color alias for xz*grep
+%global profiledir %{_sysconfdir}/profile.d
+mkdir -p %{buildroot}%{profiledir}
+install -p -m 644 %{SOURCE1} %{buildroot}%{profiledir}
+install -p -m 644 %{SOURCE2} %{buildroot}%{profiledir}
+
 %find_lang %name
 
 %check
@@ -74,6 +83,7 @@ LD_LIBRARY_PATH=$PWD/src/liblzma/.libs make check
 %doc %{_pkgdocdir}
 %license %{_pkgdocdir}/COPYING*
 %{_bindir}/*xz*
+%{profiledir}/*
 
 %exclude %_pkgdocdir/examples*
 %exclude %{_libdir}/*.la
@@ -101,6 +111,12 @@ LD_LIBRARY_PATH=$PWD/src/liblzma/.libs make check
 %{_mandir}/de/man1/*xz*
 
 %changelog
+* Fri Sep 23 2022 wangjiang <wangjiang37@h-partners.com> - 5.2.5-3
+- Type:enhancement
+- CVE:NA
+- SUG:NA
+- DESC:config color alias for xz*grep
+
 * Fri Apr 15 2022 liudabo <liudabo1@h-partners.com> - 5.2.5-2
 - Type:CVE
 - ID:CVE-2022-1271
