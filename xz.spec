@@ -1,6 +1,6 @@
 Name:           xz
-Version:        5.2.5
-Release:        3
+Version:        5.2.7
+Release:        1
 Summary:        A free general-purpose data compreession software with LZMA2 algorithm
 License:        Public Domain, LGPLv2.1 and GPLv2+
 URL:            http://tukaani.org/xz
@@ -8,7 +8,6 @@ Source0:        http://tukaani.org/%{name}/%{name}-%{version}.tar.xz
 Source1:        colorxzgrep.sh
 Source2:        colorxzgrep.csh
 
-Patch6000:      backport-CVE-2022-1271.patch
 
 BuildRequires:  perl-interpreter gcc
 
@@ -109,8 +108,16 @@ LD_LIBRARY_PATH=$PWD/src/liblzma/.libs make check
 %{_mandir}/man1/*xz*
 %{_mandir}/de/man1/*lz*
 %{_mandir}/de/man1/*xz*
+%{_mandir}/fr_FR/man1/*lz*
+%{_mandir}/fr_FR/man1/*xz*
 
 %changelog
+* Thu Oct 20 2022 laokz <zhangkai@iscas.ac.cn> - 5.2.7-1
+- Type:enhancement
+- CVE:NA
+- SUG:NA
+- DESC:upgrade version
+
 * Fri Sep 23 2022 wangjiang <wangjiang37@h-partners.com> - 5.2.5-3
 - Type:enhancement
 - CVE:NA
